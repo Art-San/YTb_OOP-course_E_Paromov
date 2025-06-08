@@ -1,33 +1,38 @@
 import { CalculatorButton } from './calculator-button'
 import { CalculatorDisplay } from './calculator-display'
 import { CalculatorExpression } from './calculator-expression'
+import { CalculatorModel } from './calculator-model'
 import { injectCss } from './utils'
 
 class Calculator {
   private root: HTMLDivElement
   private display: CalculatorDisplay
   private expression: CalculatorExpression
+  private model: CalculatorModel
   private buttons: CalculatorButton[]
 
   constructor() {
     this.display = new CalculatorDisplay()
     this.expression = new CalculatorExpression()
+    this.model = new CalculatorModel(this.display, this.expression)
 
     this.buttons = [
-      new CalculatorButton('7'),
-      new CalculatorButton('8'),
-      new CalculatorButton('9'),
-      new CalculatorButton('/'),
-      new CalculatorButton('4'),
-      new CalculatorButton('5'),
-      new CalculatorButton('6'),
-      new CalculatorButton('-'),
-      new CalculatorButton('1'),
-      new CalculatorButton('2'),
-      new CalculatorButton('3'),
-      new CalculatorButton('+'),
-      new CalculatorButton('0'),
-      new CalculatorButton('*')
+      new CalculatorButton('7').onClick(() => this.model.addDigit('7')),
+      new CalculatorButton('8').onClick(() => this.model.addDigit('8')),
+      new CalculatorButton('9').onClick(() => this.model.addDigit('9')),
+      new CalculatorButton('/').onClick(() => this.model.addOperator('/')),
+      new CalculatorButton('4').onClick(() => this.model.addDigit('4')),
+      new CalculatorButton('5').onClick(() => this.model.addDigit('5')),
+      new CalculatorButton('6').onClick(() => this.model.addDigit('6')),
+      new CalculatorButton('-').onClick(() => this.model.addOperator('-')),
+      new CalculatorButton('1').onClick(() => this.model.addDigit('1')),
+      new CalculatorButton('2').onClick(() => this.model.addDigit('2')),
+      new CalculatorButton('3').onClick(() => this.model.addDigit('3')),
+      new CalculatorButton('+').onClick(() => this.model.addOperator('+')),
+      new CalculatorButton('0').onClick(() => this.model.addDigit('0')),
+      new CalculatorButton('C').onClick(() => this.model.clear()),
+      new CalculatorButton('=').onClick(() => this.model.processCalculation()),
+      new CalculatorButton('*').onClick(() => this.model.addOperator('*'))
     ]
 
     this.root = this.createRoot()

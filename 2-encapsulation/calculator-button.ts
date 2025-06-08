@@ -7,10 +7,10 @@ export class CalculatorButton {
     this.root = this.createRoot(text)
   }
 
-  // public onClick(listener: () => void) {
-  //   this.root.addEventListener("click", listener);
-  //   return this;
-  // }
+  public onClick(listener: () => void) {
+    this.root.addEventListener('click', listener)
+    return this
+  }
 
   public renderTo(container: Element) {
     this.initCss()
