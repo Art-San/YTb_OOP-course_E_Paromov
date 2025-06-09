@@ -1,9 +1,9 @@
 export function createElementFromHTML<T extends HTMLElement = HTMLDivElement>(
   htmlString: string
 ): T {
-  var div = document.createElement("div");
-  div.innerHTML = htmlString.trim();
-  return div.firstChild as T;
+  var div = document.createElement('div')
+  div.innerHTML = htmlString.trim()
+  return div.firstChild as T
 }
 
 export function injectCss(css: string, id: string) {
@@ -12,13 +12,13 @@ export function injectCss(css: string, id: string) {
       (sheet) => (sheet as unknown as { id: string }).id === id
     )
   ) {
-    return;
+    return
   }
 
-  const styleSheet = new CSSStyleSheet();
+  const styleSheet = new CSSStyleSheet()
   Object.assign(styleSheet, {
-    id: id,
-  });
-  styleSheet.replaceSync(css);
-  document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+    id: id
+  })
+  styleSheet.replaceSync(css)
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet]
 }

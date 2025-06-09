@@ -1,6 +1,7 @@
 import { CalculatorButton } from './calculator-button'
 import { CalculatorDisplay } from './calculator-display'
 import { CalculatorExpression } from './calculator-expression'
+import { CalculatorHistory } from './calculator-history'
 import { CalculatorModel } from './calculator-model'
 import { injectCss } from './utils'
 
@@ -9,12 +10,18 @@ class Calculator {
   private display: CalculatorDisplay
   private expression: CalculatorExpression
   private model: CalculatorModel
+  private history: CalculatorHistory
   private buttons: CalculatorButton[]
 
   constructor() {
     this.display = new CalculatorDisplay()
     this.expression = new CalculatorExpression()
-    this.model = new CalculatorModel(this.display, this.expression)
+    this.history = new CalculatorHistory()
+    this.model = new CalculatorModel(
+      this.display,
+      this.expression,
+      this.history
+    )
 
     this.buttons = [
       new CalculatorButton('7').onClick(() => this.model.addDigit('7')),
@@ -30,8 +37,12 @@ class Calculator {
       new CalculatorButton('3').onClick(() => this.model.addDigit('3')),
       new CalculatorButton('+').onClick(() => this.model.addOperator('+')),
       new CalculatorButton('0').onClick(() => this.model.addDigit('0')),
-      new CalculatorButton('C').onClick(() => this.model.clear()),
-      new CalculatorButton('=').onClick(() => this.model.processCalculation()),
+      new CalculatorButton('C')
+        .onClick(() => this.model.clear())
+        .addClass('grey'),
+      new CalculatorButton('=')
+        .onClick(() => this.model.processCalculation())
+        .addClass('red'),
       new CalculatorButton('*').onClick(() => this.model.addOperator('*'))
     ]
 
@@ -58,6 +69,8 @@ class Calculator {
     })
 
     root.append(buttonsContainer)
+
+    this.history.renderTo(root)
 
     return root
   }
