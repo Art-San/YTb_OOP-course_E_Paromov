@@ -1,29 +1,29 @@
-import type { CalculatorModel } from "../calculator-model";
-import { injectCss } from "../utils";
-import { CalculatorButton } from "./calculator-button";
+import type { CalculatorModel } from '../calculator-model'
+import { injectCss } from '../utils'
+import { CalculatorButton } from './calculator-button'
 
 export class CancelButton extends CalculatorButton {
   constructor(model: CalculatorModel) {
-    super("C");
-    super.addClass("cancel_calculator_button");
+    super('C')
+    this.addClass('cancel_calculator_button')
     super.onClick(() => {
-      const isConfirm = confirm("Вы действительно?*");
+      const isConfirm = confirm('Вы действительно?*')
 
       if (isConfirm) {
-        model.processCaclucation();
+        model.processCalculation()
       }
-    });
+    })
   }
 
   protected initCss(): void {
-    super.initCss();
+    super.initCss()
     injectCss(
       /*css*/ `
       .cancel_calculator_button {
         background: gray;
       }
       `,
-      "cancel_calculator_button"
-    );
+      'cancel_calculator_button'
+    )
   }
 }
