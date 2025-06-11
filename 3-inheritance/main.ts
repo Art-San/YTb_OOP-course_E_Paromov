@@ -1,6 +1,12 @@
 import { CalculatorButton } from './button/calculator-button'
-import { CancelButton } from './button/cancel-button'
+import { ClearButton } from './button/clear-button'
 import { NumberButton } from './button/number-button'
+import {
+  DivideButton,
+  MultiplyButton,
+  SubtractionButton,
+  AddButton
+} from './button/operation-buttons'
 import { ProcessButton } from './button/process-button'
 import { CalculatorDisplay } from './calculator-display'
 import { CalculatorExpression } from './calculator-expression'
@@ -30,19 +36,23 @@ class Calculator {
       new NumberButton('7', this.model),
       new NumberButton('8', this.model),
       new NumberButton('9', this.model),
-      new CalculatorButton('/').onClick(() => this.model.addOperator('/')),
+      new DivideButton(this.model),
+      // new CalculatorButton('/').onClick(() => this.model.addOperator('/')),
       new NumberButton('4', this.model),
       new NumberButton('5', this.model),
       new NumberButton('6', this.model),
-      new CalculatorButton('-').onClick(() => this.model.addOperator('-')),
+      // new CalculatorButton('-').onClick(() => this.model.addOperator('-')),
+      new MultiplyButton(this.model),
       new NumberButton('1', this.model),
       new NumberButton('2', this.model),
       new NumberButton('3', this.model),
-      new CalculatorButton('+').onClick(() => this.model.addOperator('+')),
+      // new CalculatorButton('+').onClick(() => this.model.addOperator('+')),
+      new SubtractionButton(this.model),
       new NumberButton('0', this.model),
-      new CancelButton(this.model),
+      new ClearButton(this.model),
       new ProcessButton(this.model),
-      new CalculatorButton('*').onClick(() => this.model.addOperator('*'))
+      // new CalculatorButton('*').onClick(() => this.model.addOperator('*'))
+      new AddButton(this.model)
     ]
 
     this.root = this.createRoot()

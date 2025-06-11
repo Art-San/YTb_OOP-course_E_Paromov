@@ -37,6 +37,12 @@ export class CalculatorModel {
     }
   }
 
+  public canProcess() {
+    return (
+      this.firstOperand !== null && this.operator && this.secondOperand !== null
+    )
+  }
+
   public processCalculation() {
     if (
       this.firstOperand !== null &&

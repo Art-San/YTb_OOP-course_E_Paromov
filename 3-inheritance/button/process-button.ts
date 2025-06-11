@@ -6,7 +6,13 @@ export class ProcessButton extends CalculatorButton {
   constructor(model: CalculatorModel) {
     super('=')
     super.addClass('process_calculator_button')
-    super.onClick(() => model.processCalculation())
+    super.onClick(() => {
+      if (model.canProcess()) {
+        model.processCalculation()
+      } else {
+        alert('Can not process')
+      }
+    })
   }
 
   protected initCss(): void {
