@@ -5,8 +5,8 @@ import { CalculatorButton } from './calculator-button'
 export class ProcessButton extends CalculatorButton {
   constructor(model: CalculatorModel) {
     super('=')
-    super.addClass('process_calculator_button')
-    super.onClick(() => {
+    this.addClass('process_calculator_button')
+    this.onClick(() => {
       if (model.canProcess()) {
         model.processCalculation()
       } else {

@@ -5,8 +5,8 @@ import { CalculatorButton } from './calculator-button'
 export class ClearButton extends CalculatorButton {
   constructor(model: CalculatorModel) {
     super('C')
-    this.addClass('cancel_calculator_button')
-    super.onClick(() => {
+    this.addClass('clear_calculator_button')
+    this.onClick(() => {
       const isConfirm = confirm('Вы действительно?*')
       console.log(36, isConfirm)
 
@@ -20,11 +20,11 @@ export class ClearButton extends CalculatorButton {
     super.initCss()
     injectCss(
       /*css*/ `
-      .cancel_calculator_button {
+      .clear_calculator_button {
         background: gray;
       }
       `,
-      'cancel_calculator_button'
+      'clear_calculator_button'
     )
   }
 }
