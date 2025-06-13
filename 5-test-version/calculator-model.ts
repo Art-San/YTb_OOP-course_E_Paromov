@@ -1,10 +1,11 @@
 import type { CalculatorDisplay } from './calculator-display'
 import type { CalculatorExpression } from './calculator-expression'
 import type { CalculatorHistory } from './calculator-history'
+import type { Operator } from './operator'
 
 export class CalculatorModel {
   private firstOperand: number | null = null
-  private operator: string | null = null
+  private operator: Operator | null = null
   private secondOperand: number | null = null
 
   constructor(
@@ -23,19 +24,33 @@ export class CalculatorModel {
     }
   }
 
-  public addOperator(operatorText: string) {
+  public addOperator(operator: Operator) {
     if (this.firstOperand && this.operator && this.secondOperand) {
       this.processCalculation()
-      this.addOperator(operatorText)
+      this.addOperator(operator)
     }
 
     if (this.firstOperand) {
-      this.operator = operatorText
+      this.operator = operator
 
       this.expresssion.setOperator(this.firstOperand, this.operator)
       this.display.clear()
     }
   }
+
+  //   public addOperator(operatorText: string) {
+  //     if (this.firstOperand && this.operator && this.secondOperand) {
+  //       this.processCalculation()
+  //       this.addOperator(operatorText)
+  //     }
+
+  //     if (this.firstOperand) {
+  //       this.operator = operatorText
+
+  //       this.expresssion.setOperator(this.firstOperand, this.operator)
+  //       this.display.clear()
+  //     }
+  //   }
 
   public canProcess() {
     return (
@@ -49,29 +64,15 @@ export class CalculatorModel {
       this.operator &&
       this.secondOperand !== null
     ) {
-      let result: number
-      switch (this.operator) {
-        case '+':
-          result = this.firstOperand + this.secondOperand
-          break
-        case '-':
-          result = this.firstOperand - this.secondOperand
-          break
-        case '/':
-          result = this.firstOperand / this.secondOperand
-          break
-        case '*':
-          result = this.firstOperand / this.secondOperand
-          break
-        default:
-          return
-      }
+      const result: number = this.operator.calculate(
+        this.firstOperand,
+        this.secondOperand
+      )
 
       this.history.addOperation(
         this.firstOperand,
         this.operator,
-        this.secondOperand,
-        result
+        this.secondOperand
       )
 
       this.firstOperand = result

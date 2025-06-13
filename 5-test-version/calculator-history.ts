@@ -1,56 +1,37 @@
-import { createElementFromHTML, injectCss } from "./utils";
+import type { Operator } from './operator'
+import { createElementFromHTML, injectCss } from './utils'
 
 export class CalculatorHistory {
-  private root: HTMLDivElement;
+  private root: HTMLDivElement
 
   constructor() {
-    this.root = this.createRoot();
+    this.root = this.createRoot()
   }
 
   public renderTo(container: Element) {
-    this.initCss();
-    container.append(this.root);
+    this.initCss()
+    container.append(this.root)
   }
 
   public addOperation(
     firstOperand: number,
-    operator: string,
-    secondOperand: number,
-    result: number
+    operator: Operator,
+    secondOperand: number
   ) {
-    let modif = "";
-
-    switch (operator) {
-      case "+":
-        modif = "add";
-        break;
-      case "-":
-        modif = "subtract";
-        break;
-      case "/":
-        modif = "divide";
-        break;
-      case "*":
-        modif = "multiply";
-        break;
-      default:
-        return;
-    }
-
     const historyItem = createElementFromHTML(/*html*/ `
-      <div class="calculator_history-item ${modif}">
-        ${firstOperand} ${operator} ${secondOperand} = ${result}
+      <div class="calculator_history-item ${operator.getHistoryClass}">
+        ${operator.getHistoryText(firstOperand, secondOperand)}
       </div>
-      `);
+      `)
 
-    this.root.append(historyItem);
+    this.root.append(historyItem)
   }
 
   private createRoot() {
-    const root = document.createElement("div");
-    root.classList.add("calculator_history");
-    root.innerText = "";
-    return root;
+    const root = document.createElement('div')
+    root.classList.add('calculator_history')
+    root.innerText = ''
+    return root
   }
 
   private initCss() {
@@ -85,7 +66,7 @@ export class CalculatorHistory {
         font-weight: bold;
       }
           `,
-      "calculator_history"
-    );
+      'calculator_history'
+    )
   }
 }
