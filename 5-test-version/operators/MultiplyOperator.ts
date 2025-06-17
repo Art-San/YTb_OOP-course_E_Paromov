@@ -2,29 +2,29 @@ import { CalculatorButton } from '../button/calculator-button'
 import type { CalculatorModel } from '../calculator-model'
 import type { Operator } from '../operator'
 
-class AddOperator implements Operator {
+class MultiplyOperator implements Operator {
   calculate(firstOperand: number, secondOperand: number): number {
-    return firstOperand + secondOperand
+    return firstOperand * secondOperand
   }
   getExpression(firstOperand: number): string {
-    return `${firstOperand} +`
+    return `${firstOperand} *`
   }
   getHistoryText(firstOperand: number, secondOperand: number): string {
-    return `${firstOperand} + ${secondOperand} = ${this.calculate(
+    return `${firstOperand} * ${secondOperand} = ${this.calculate(
       firstOperand,
       secondOperand
     )}`
   }
   getHistoryClass(): string {
-    return `add`
+    return `multiply`
   }
 }
-export class AddButton extends CalculatorButton {
+export class MultiplyButton extends CalculatorButton {
   constructor(private model: CalculatorModel) {
-    super('+')
+    super('*')
   }
 
   onClick() {
-    this.model.addOperator(new AddOperator())
+    this.model.addOperator(new MultiplyOperator())
   }
 }

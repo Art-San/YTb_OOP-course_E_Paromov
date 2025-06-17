@@ -1,18 +1,17 @@
 import { CalculatorButton } from './button/calculator-button'
 import { ClearButton } from './button/clear-button'
 import { NumberButton } from './button/number-button'
-import {
-  DivideButton,
-  MultiplyButton,
-  SubtractionButton,
-  AddButton
-} from './button/operation-buttons'
+import { DivideButton } from './operators/DivideOperator'
+import { SubtractionButton } from './operators/SubtractOperator'
+import { AddButton } from './operators/AddOperator'
+import { MultiplyButton } from './operators/MultiplyOperator'
 import { ProcessButton } from './button/process-button'
 import { CalculatorDisplay } from './calculator-display'
 import { CalculatorExpression } from './calculator-expression'
 import { CalculatorHistory } from './calculator-history'
 import { CalculatorModel } from './calculator-model'
 import { injectCss } from './utils'
+import { PowButton } from './operators/PowOperator'
 
 class Calculator {
   private root: HTMLDivElement
@@ -33,26 +32,28 @@ class Calculator {
     )
 
     this.buttons = [
+      // 1 row
       new NumberButton('7', this.model),
       new NumberButton('8', this.model),
       new NumberButton('9', this.model),
       new DivideButton(this.model),
-      // new CalculatorButton('/').onClick(() => this.model.addOperator('/')),
+      // 2 row
       new NumberButton('4', this.model),
       new NumberButton('5', this.model),
       new NumberButton('6', this.model),
-      // new CalculatorButton('-').onClick(() => this.model.addOperator('-')),
       new MultiplyButton(this.model),
+      // 3 row
       new NumberButton('1', this.model),
       new NumberButton('2', this.model),
       new NumberButton('3', this.model),
-      // new CalculatorButton('+').onClick(() => this.model.addOperator('+')),
       new SubtractionButton(this.model),
+      // 4 row
       new NumberButton('0', this.model),
       new ClearButton(this.model),
       new ProcessButton(this.model),
-      // new CalculatorButton('*').onClick(() => this.model.addOperator('*'))
-      new AddButton(this.model)
+      new AddButton(this.model),
+      // 5 row
+      new PowButton(this.model)
     ]
 
     this.root = this.createRoot()

@@ -13,13 +13,13 @@ export class CalculatorExpression {
     container.append(this.root)
   }
 
-  // public setOperator(firstOperand: number, operator: string) {
-  //   this.root.innerText = `${firstOperand} ${operator}`;
-  // }
-
   public setOperator(firstOperand: number, operator: Operator) {
     this.root.innerText = operator.getExpression(firstOperand)
   }
+  // так было
+  // public setOperator(firstOperand: number, operator: string) {
+  //   this.root.innerText = `${firstOperand} ${operator}`;
+  // }
 
   public clear() {
     this.root.innerText = ''

@@ -4,9 +4,8 @@ import { CalculatorButton } from './calculator-button'
 export class NumberButton extends CalculatorButton {
   constructor(private digit: string, private model: CalculatorModel) {
     super(digit)
-    // this.onClick(() => model.addDigit(digit))
   }
-  onClick() {
+  onClick(): void {
     this.model.addDigit(this.digit)
   }
 }

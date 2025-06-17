@@ -7,7 +7,8 @@ export class ProcessButton extends CalculatorButton {
     super('=')
     this.addClass('process_calculator_button')
   }
-  onClick() {
+
+  onClick(): void {
     if (this.model.canProcess()) {
       this.model.processCalculation()
     } else {

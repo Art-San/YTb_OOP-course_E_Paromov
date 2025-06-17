@@ -1,6 +1,8 @@
+import { CalculatorButton } from '../button/calculator-button'
+import type { CalculatorModel } from '../calculator-model'
 import type { Operator } from '../operator'
 
-export class SubscractOperator implements Operator {
+class SubtractOperator implements Operator {
   calculate(firstOperand: number, secondOperand: number): number {
     return firstOperand - secondOperand
   }
@@ -14,6 +16,14 @@ export class SubscractOperator implements Operator {
     )}`
   }
   getHistoryClass(): string {
-    return `substract`
+    return `subtract`
+  }
+}
+export class SubtractionButton extends CalculatorButton {
+  constructor(private model: CalculatorModel) {
+    super('-')
+  }
+  onClick() {
+    this.model.addOperator(new SubtractOperator())
   }
 }

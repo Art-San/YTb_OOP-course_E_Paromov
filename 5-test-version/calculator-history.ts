@@ -16,13 +16,39 @@ export class CalculatorHistory {
   public addOperation(
     firstOperand: number,
     operator: Operator,
+    // operator: string,
     secondOperand: number
+    // result: number
   ) {
+    // let modif = ''
+
+    // switch (operator) {
+    //   case "+":
+    //     modif = "add";
+    //     break;
+    //   case "-":
+    //     modif = "subtract";
+    //     break;
+    //   case "/":
+    //     modif = "divide";
+    //     break;
+    //   case "*":
+    //     modif = "multiply";
+    //     break;
+    //   default:
+    //     return;
+    // }
+
     const historyItem = createElementFromHTML(/*html*/ `
-      <div class="calculator_history-item ${operator.getHistoryClass}">
+      <div class="calculator_history-item ${operator.getHistoryClass()}">
         ${operator.getHistoryText(firstOperand, secondOperand)}
       </div>
       `)
+    // const historyItem = createElementFromHTML(/*html*/ `
+    //   <div class="calculator_history-item ${modif}">
+    //     ${firstOperand} ${operator} ${secondOperand} = ${result}
+    //   </div>
+    //   `);
 
     this.root.append(historyItem)
   }
@@ -57,6 +83,9 @@ export class CalculatorHistory {
       }
       .calculator_history-item.multiply {
         color: #3498db;
+      }
+      .calculator_history-item.pow {
+        color: #00FFFF;
       }
       .calculator_history-item.divide {
         color: #9b59b6;

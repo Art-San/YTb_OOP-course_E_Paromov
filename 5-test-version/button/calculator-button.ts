@@ -17,6 +17,11 @@ export abstract class CalculatorButton {
   }
 
   abstract onClick(): void
+  // было так
+  // public onClick(listener: () => void) {
+  //   this.root.addEventListener("click", listener);
+  //   return this;
+  // }
 
   public renderTo(container: Element) {
     this.initCss()
