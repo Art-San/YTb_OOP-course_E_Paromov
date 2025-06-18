@@ -29,6 +29,8 @@ class Calculator {
     this.model = new CalculatorModel()
 
     this.model.addSubscriber(this.display.subscriber)
+    this.model.addSubscriber(this.expression.subscriber)
+    this.model.addSubscriber(this.history.subscriber)
 
     this.buttons = [
       // 1 row

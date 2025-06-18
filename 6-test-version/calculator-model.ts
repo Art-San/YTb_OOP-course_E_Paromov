@@ -1,24 +1,5 @@
-// import type { CalculatorDisplay } from './calculator-display'
-// import type { CalculatorExpression } from './calculator-expression'
-// import type { CalculatorHistory } from './calculator-history'
+import type { CalculatorSubscriber } from './calculator-subscriber'
 import type { BiOperator, UnOperator } from './operator'
-
-export interface CalculatorSubscriber {
-  currentOperandUpdated(operand: number, type: 'first' | 'second'): void
-  biOperatorAdded(operator: BiOperator, firstOperand: number): void
-  unOperatorCalculated(event: {
-    operator: UnOperator
-    operand: number
-    result: number
-  }): void
-  biOperatorCalculated(event: {
-    operator: BiOperator
-    firstOperand: number
-    secondOperand: number
-    result: number
-  }): void
-  cleared(): void
-}
 
 export class CalculatorModel {
   private firstOperand: number | null = null
@@ -27,26 +8,19 @@ export class CalculatorModel {
   private subscribers: CalculatorSubscriber[] = []
 
   public addSubscriber(subs: CalculatorSubscriber) {
+    console.log(123, this.subscribers)
     this.subscribers.push(subs)
   }
-
-  // constructor(
-  //   private display: CalculatorDisplay,
-  //   private expression: CalculatorExpression,
-  //   private history: CalculatorHistory
-  // ) {}
 
   public addDigit(digitText: string) {
     if (this.operator === null) {
       const firstOperand = parseInt(`${this.firstOperand ?? ''}${digitText}`)
       this.firstOperand = firstOperand
-      // this.display.setNumber(this.firstOperand)
+
       this.subscribers.forEach((s) =>
         s.currentOperandUpdated(firstOperand, 'first')
       )
     } else {
-      this.secondOperand = parseInt(`${this.secondOperand ?? ''}${digitText}`)
-      // this.display.setNumber(this.secondOperand)
       const secondOperand = parseInt(`${this.secondOperand ?? ''}${digitText}`)
       this.secondOperand = secondOperand
       this.subscribers.forEach((s) =>
@@ -63,9 +37,6 @@ export class CalculatorModel {
 
     if (this.firstOperand) {
       this.operator = operator
-
-      // this.expression.setOperator(this.firstOperand, this.operator)
-      // this.display.clear()
       this.subscribers.forEach((s) =>
         s.biOperatorAdded(operator, this.firstOperand!)
       )
@@ -87,9 +58,8 @@ export class CalculatorModel {
           result
         })
       )
-      // this.history.addUnOperation(this.firstOperand, operator)
+
       this.firstOperand = result
-      // this.display.setNumber(this.firstOperand)
     }
   }
 
@@ -119,18 +89,9 @@ export class CalculatorModel {
         })
       )
 
-      // this.history.addBiOperation(
-      //   this.firstOperand,
-      //   this.operator,
-      //   this.secondOperand
-      // )
-
       this.firstOperand = result
       this.operator = null
       this.secondOperand = null
-
-      // this.display.setNumber(this.firstOperand)
-      // this.expression.clear()
     }
   }
 
@@ -138,7 +99,5 @@ export class CalculatorModel {
     this.firstOperand = null
     this.operator = null
     this.subscribers.forEach((s) => s.cleared())
-    // this.display.clear()
-    // this.expression.clear()
   }
 }

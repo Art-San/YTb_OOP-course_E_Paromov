@@ -1,4 +1,7 @@
-import type { CalculatorSubscriber } from './calculator-model'
+import {
+  BaseCalculatorSubscriber,
+  type CalculatorSubscriber
+} from './calculator-subscriber'
 import type { BiOperator } from './operator'
 import { injectCss } from './utils'
 
@@ -47,17 +50,19 @@ export class CalculatorExpression {
   }
 }
 
-class ExpressionSubscriber implements CalculatorSubscriber {
-  constructor(private expression: CalculatorExpression) {}
-  currentOperandUpdated(): void {}
-
-  biOperatorAdded(): void {
-    this.expression.clear()
+class ExpressionSubscriber
+  extends BaseCalculatorSubscriber
+  implements CalculatorSubscriber
+{
+  constructor(private expression: CalculatorExpression) {
+    super()
   }
 
-  unOperatorCalculated(): void {}
+  biOperatorAdded(operator: BiOperator, firstOperand: number): void {
+    this.expression.setOperator(firstOperand, operator)
+  }
 
-  biOperatorCalculated(e: { result: number }): void {
+  biOperatorCalculated(): void {
     this.expression.clear()
   }
 

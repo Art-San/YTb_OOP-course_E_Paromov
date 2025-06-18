@@ -1,9 +1,16 @@
+import {
+  BaseCalculatorSubscriber,
+  type BiOperatorCalculatedEvent,
+  type CalculatorSubscriber,
+  type UnOperatorCalculatedEvent
+} from './calculator-subscriber'
 import type { BiOperator, UnOperator } from './operator'
 import { createElementFromHTML, injectCss } from './utils'
 
 export class CalculatorHistory {
   private root: HTMLDivElement
 
+  public readonly subscriber = new HistorySubscriber(this)
   constructor() {
     this.root = this.createRoot()
   }
@@ -80,5 +87,25 @@ export class CalculatorHistory {
           `,
       'calculator_history'
     )
+  }
+}
+
+class HistorySubscriber
+  extends BaseCalculatorSubscriber
+  implements CalculatorSubscriber
+{
+  constructor(private history: CalculatorHistory) {
+    super()
+  }
+
+  biOperatorCalculated(event: BiOperatorCalculatedEvent): void {
+    this.history.addBiOperation(
+      event.firstOperand,
+      event.operator,
+      event.secondOperand
+    )
+  }
+  unOperatorCalculated(event: UnOperatorCalculatedEvent): void {
+    this.history.addUnOperation(event.operand, event.operator)
   }
 }

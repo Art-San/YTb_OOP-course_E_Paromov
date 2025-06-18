@@ -1,5 +1,4 @@
-import type { CalculatorSubscriber } from './calculator-model'
-
+import type { CalculatorSubscriber } from './calculator-subscriber'
 import { injectCss } from './utils'
 
 export class CalculatorDisplay {
